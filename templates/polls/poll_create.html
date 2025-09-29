@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Poll - Votely{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'polls:list' %}">Polls</a></li>
+                <li class="breadcrumb-item active">Create New Poll</li>
+            </ol>
+        </nav>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">
+                    <i class="bi bi-plus-circle"></i> Create New Poll
+                </h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-lightbulb"></i> Tips for Great Polls</h5>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li><strong>Clear title:</strong> Make it descriptive and engaging</li>
+                    <li><strong>Detailed description:</strong> Provide context and background</li>
+                    <li><strong>Good choices:</strong> Make them distinct and comprehensive</li>
+                    <li><strong>Relevant tags:</strong> Help people discover your poll</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-question-circle"></i> How It Works</h5>
+            </div>
+            <div class="card-body">
+                <ol class="small">
+                    <li>Fill in your poll details</li>
+                    <li>Add choices (one per line)</li>
+                    <li>Add relevant tags</li>
+                    <li>Click "Create Poll"</li>
+                    <li>Share with others!</li>
+                </ol>
+                
+                <hr>
+                
+                <h6><i class="bi bi-tags"></i> Popular Tags</h6>
+                <div class="small">
+                    <span class="badge bg-light text-dark me-1">technology</span>
+                    <span class="badge bg-light text-dark me-1">entertainment</span>
+                    <span class="badge bg-light text-dark me-1">sports</span>
+                    <span class="badge bg-light text-dark me-1">food</span>
+                    <span class="badge bg-light text-dark me-1">politics</span>
+                    <span class="badge bg-light text-dark me-1">lifestyle</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

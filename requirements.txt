@@ -1,0 +1,14 @@
+Django>=5.0,<6.0
+django-components>=0.65
+django-bootstrap5>=23.4
+django-braces>=1.15
+django-extensions>=3.2
+django-taggit>=5.0
+django-filter>=23.5
+django-crispy-forms>=2.1
+crispy-bootstrap5>=2024.2
+django-allauth>=0.63
+django-debug-toolbar>=4.4
+# django-vote>=2.3.0  # Not compatible with Django 5.x
+Pillow>=10.3
+python-dotenv>=1.0

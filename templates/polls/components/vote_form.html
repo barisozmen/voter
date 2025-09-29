@@ -1,0 +1,46 @@
+{% load crispy_forms_tags %}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="bi bi-ballot"></i> 
+            {% if has_voted %}Your Vote{% else %}Cast Your Vote{% endif %}
+        </h5>
+    </div>
+    <div class="card-body">
+        {% if has_voted %}
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                You voted for: <strong>{{ user_vote.text }}</strong>
+                <br><small>You can change your vote below.</small>
+            </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'polls:vote' poll.pk %}" 
+              data-poll-id="{{ poll.pk }}" 
+              onsubmit="event.preventDefault(); submitVote(this);">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                {% for choice in form.choice.field.queryset %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" 
+                               type="radio" 
+                               name="{{ form.choice.html_name }}" 
+                               value="{{ choice.pk }}" 
+                               id="choice_{{ choice.pk }}"
+                               {% if form.choice.value == choice.pk|stringformat:"s" %}checked{% endif %}>
+                        <label class="form-check-label" for="choice_{{ choice.pk }}">
+                            {{ choice.text }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check2-square"></i>
+                {% if has_voted %}Change Vote{% else %}Vote{% endif %}
+            </button>
+        </form>
+    </div>
+</div>
