@@ -34,11 +34,11 @@ class PollModelTest(TestCase):
         self.assertEqual(self.poll.total_votes, 1)
     
     def test_choice_vote_count(self):
-        self.assertEqual(self.choice1.vote_count, 0)
+        self.assertEqual(self.choice1.votes.count(), 0)
         
-        # Use custom voting system to create a vote
+        # Use django-vote to create a vote
         self.choice1.votes.up(self.user)
-        self.assertEqual(self.choice1.vote_count, 1)
+        self.assertEqual(self.choice1.votes.count(), 1)
     
     def test_poll_user_vote(self):
         # User hasn't voted yet
@@ -92,18 +92,16 @@ class CustomVotingSystemTest(TestCase):
         self.assertEqual(vote1.pk, vote2.pk)
         self.assertEqual(self.choice1.votes.count(), 1)
     
-    def test_votable_mixin_methods(self):
-        # Test mixin methods
-        self.assertEqual(self.choice1.vote_count, 0)
-        self.assertFalse(self.choice1.has_user_voted(self.user1))
-        self.assertIsNone(self.choice1.user_vote(self.user1))
+    def test_vote_model_methods(self):
+        # Test django-vote methods
+        self.assertEqual(self.choice1.votes.count(), 0)
+        self.assertFalse(self.choice1.votes.exists(self.user1))
         
         # Cast a vote
         self.choice1.votes.up(self.user1)
         
-        self.assertEqual(self.choice1.vote_count, 1)
-        self.assertTrue(self.choice1.has_user_voted(self.user1))
-        self.assertIsNotNone(self.choice1.user_vote(self.user1))
+        self.assertEqual(self.choice1.votes.count(), 1)
+        self.assertTrue(self.choice1.votes.exists(self.user1))
 
 
 class PollViewTest(TestCase):

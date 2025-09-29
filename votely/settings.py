@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'debug_toolbar',
-    # 'vote',  # Not compatible with Django 5.x
+    # Using minimal custom voting system
     
     # Local apps
     'polls.apps.PollsConfig',

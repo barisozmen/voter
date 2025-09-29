@@ -2,6 +2,10 @@
 
 A production-ready Django voting application demonstrating modern Django architecture with elegant, reusable components.
 
+
+![Votely](home-screenshot.png)
+
+
 ## 🎯 Features
 
 - **Modern Django Architecture** - Clean, maintainable code structure

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
-from .voting import VotableMixin, VotableManager
+from .voting import VoteModel
 
 
 class Poll(models.Model):
@@ -30,14 +30,14 @@ class Poll(models.Model):
     @property
     def total_votes(self):
         """Return total votes across all choices"""
-        return sum(choice.vote_count for choice in self.choices.all())
+        return sum(choice.votes.count() for choice in self.choices.all())
         
     def get_results(self):
         """Return choices with vote counts and percentages"""
         total = self.total_votes
         results = []
         for choice in self.choices.all():
-            count = choice.vote_count
+            count = choice.votes.count()
             percentage = (count / total * 100) if total > 0 else 0
             results.append({
                 'choice': choice,
@@ -52,17 +52,15 @@ class Poll(models.Model):
             return None
         
         for choice in self.choices.all():
-            if choice.has_user_voted(user):
+            if choice.votes.exists(user):
                 return choice
         return None
 
 
-class Choice(VotableMixin, models.Model):
+class Choice(VoteModel, models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='choices')
     text = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
-    
-    objects = VotableManager()
     
     class Meta:
         ordering = ['id']

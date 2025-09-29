@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Poll, Choice
-from .voting import Vote
 
 
 class ChoiceInline(admin.TabularInline):
@@ -9,7 +8,7 @@ class ChoiceInline(admin.TabularInline):
     readonly_fields = ('vote_count_display',)
     
     def vote_count_display(self, obj):
-        return obj.vote_count if obj.pk else 0
+        return obj.votes.count() if obj.pk else 0
     vote_count_display.short_description = 'Votes'
 
 
@@ -36,17 +35,8 @@ class ChoiceAdmin(admin.ModelAdmin):
     readonly_fields = ('vote_count_display', 'created_at')
     
     def vote_count_display(self, obj):
-        return obj.vote_count
+        return obj.votes.count()
     vote_count_display.short_description = 'Votes'
 
 
-@admin.register(Vote)
-class VoteAdmin(admin.ModelAdmin):
-    list_display = ['user', 'content_object', 'content_type', 'created_at']
-    list_filter = ['content_type', 'created_at']
-    search_fields = ['user__username']
-    readonly_fields = ('content_object', 'created_at')
-    
-    def has_add_permission(self, request):
-        # Prevent manual vote creation through admin
-        return False
+# Vote admin is provided by django-vote package
