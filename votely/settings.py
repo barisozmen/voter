@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     # Local apps
     'polls.apps.PollsConfig',
+    'components.apps.ComponentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -124,13 +126,27 @@ COMPONENTS = {
     'autodiscover': True,
     'libraries': [
         'polls.components',
+        'components',
     ],
 }
 
 # Django Bootstrap 5
-BOOTSTRAP5 = {
-    'css_url': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
-    'javascript_url': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+BOOTSTRAP5 = {    
+# Popular Bootswatch themes (uncomment one):
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+ 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/darkly/bootstrap.min.css',  # Dark theme
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cerulean/bootstrap.min.css',  # Blue theme
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/cosmo/bootstrap.min.css',  # Flat theme
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/flatly/bootstrap.min.css',  # Modern flat
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/journal/bootstrap.min.css',  # Newspaper
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/lux/bootstrap.min.css',  # Elegant
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/materia/bootstrap.min.css',  # Material Design
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/minty/bootstrap.min.css',  # Fresh mint
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/pulse/bootstrap.min.css',  # Purple
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/sandstone/bootstrap.min.css',  # Warm
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/united/bootstrap.min.css',  # Orange
+# 'css_url': 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/yeti/bootstrap.min.css',  # Clean
+'javascript_url': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
 }
 
 # Crispy Forms
