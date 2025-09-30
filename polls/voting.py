@@ -61,3 +61,4 @@ class VoteProxy:
         return Vote.objects.filter(
             content_type=self.ct, object_id=self.obj.pk
         ).count()
+
